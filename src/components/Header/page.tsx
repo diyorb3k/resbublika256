@@ -28,7 +28,7 @@ const Header = () => {
   }, [isDarkMode]);
 
   return (
-    <div className=" name  container  body.dark:bg-[#222] mx-auto fixed z-[10000px] py-[23px] shadow-lg">
+    <div className=" name  bg-[#fff] container  body.dark:bg-[black] mx-auto fixed z-[10000px] py-[23px] shadow-lg">
       <div className="flex justify-between items-center flex-wrap">
         <h2 className="font-nunito text-2xl leading-[32.74px] font-extrabold">
           Where in the world?

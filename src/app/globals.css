@@ -1,36 +1,34 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 
-
-
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-*{
-font-family: Nunito Sans ;
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-text-decoration: none;
-
+* {
+  font-family: 'Nunito Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
 }
+
 body {
-    transition: background-color 0.3s, color 0.3s !important;
-  }
-  
-  body.dark {
-    background-color: #111517 !important; 
-    color: white !important; 
-  }
-  body.dark input{
-    color: black;
-  }
-  body.dark select{
-    color: black;
-  }
-  
-  body.dark.name{
-background-color: black !important;
+  transition: background-color 0.3s, color 0.3s;
 }
 
+body.dark {
+  background-color: #111517;
+  color: white;
+}
+
+body.dark input{
+    color: black;
+}
+
+body.dark select {
+  color: black;
+}
+
+body.dark .name {
+  background-color:  #111517;
+}
