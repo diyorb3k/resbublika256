@@ -1,5 +1,4 @@
-"use client"; // Bu qatorda komponentni "Client Component" sifatida belgilash
-
+"use client"; 
 import { useEffect, useState } from "react";
 
 type Wait = {
@@ -25,6 +24,7 @@ type Wait = {
 const Counterisdata = () => {
   const [posts, setPosts] = useState<Wait[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [region, setRegion] = useState<string>("");
   const [filteredPosts, setFilteredPosts] = useState<Wait[]>([]);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const Counterisdata = () => {
         const res = await fetch("https://restcountries.com/v3.1/all");
         const data: Wait[] = await res.json();
         setPosts(data);
-        setFilteredPosts(data); // Dastlabki qiymatni filtrlangan ro'yxatga qo'shamiz
+        setFilteredPosts(data); 
       } catch (error) {
         console.log(error);
       }
@@ -41,18 +41,17 @@ const Counterisdata = () => {
     fetchData();
   }, []);
 
-  // Qidiruv natijalarini yangilash
   useEffect(() => {
     setFilteredPosts(
       posts.filter((post) =>
-        post.name.common.toLowerCase().includes(searchTerm.toLowerCase())
+        post.name.common.toLowerCase().includes(searchTerm.toLowerCase()) &&
+        (region ? post.region === region : true)
       )
     );
-  }, [searchTerm, posts]);
+  }, [searchTerm, region, posts]);
 
   return (
     <div className="container mx-auto font-nunito z-[0px] pt-[100px]">
-      {/* Input va Select qismi */}
       <div className="flex-wrap mb-[48px] flex justify-between mt-[48px]">
         <input
           className="shadow-sm w-[480px] border border[red] border-gray-300 rounded-[4px] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -61,15 +60,19 @@ const Counterisdata = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <select className="w-[200px] py-[9px] border border-gray-300 rounded-[4px]">
+        <select
+          className="w-[200px] py-[9px] border border-gray-300 rounded-[4px]"
+          value={region}
+          onChange={(e) => setRegion(e.target.value)} 
+        >
           <option value="">Filter by Region</option>
           <option value="Africa">Africa</option>
-          <option value="America">America</option>
+          <option value="Americas">Americas</option> 
           <option value="Asia">Asia</option>
+          <option value="Europe">Europe</option>
           <option value="Oceania">Oceania</option>
         </select>
       </div>
-      {/* Ma'lumotlarni ko'rsatish qismi */}
       <div className="flex flex-wrap justify-between">
         {filteredPosts.length > 0 ? (
           filteredPosts.map((post: Wait, index: number) => (
@@ -94,7 +97,7 @@ const Counterisdata = () => {
             </div>
           ))
         ) : (
-          <div>No data available</div>
+          <div>Davlatlar topilmadi</div>
         )}
       </div>
     </div>
