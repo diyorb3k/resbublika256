@@ -1,4 +1,5 @@
-"use client"; 
+"use client";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 type Wait = {
@@ -33,7 +34,7 @@ const Counterisdata = () => {
         const res = await fetch("https://restcountries.com/v3.1/all");
         const data: Wait[] = await res.json();
         setPosts(data);
-        setFilteredPosts(data); 
+        setFilteredPosts(data);
       } catch (error) {
         console.log(error);
       }
@@ -43,9 +44,10 @@ const Counterisdata = () => {
 
   useEffect(() => {
     setFilteredPosts(
-      posts.filter((post) =>
-        post.name.common.toLowerCase().includes(searchTerm.toLowerCase()) &&
-        (region ? post.region === region : true)
+      posts.filter(
+        (post) =>
+          post.name.common.toLowerCase().includes(searchTerm.toLowerCase()) &&
+          (region ? post.region === region : true)
       )
     );
   }, [searchTerm, region, posts]);
@@ -63,11 +65,11 @@ const Counterisdata = () => {
         <select
           className="w-[200px] py-[9px] border border-gray-300 rounded-[4px]"
           value={region}
-          onChange={(e) => setRegion(e.target.value)} 
+          onChange={(e) => setRegion(e.target.value)}
         >
           <option value="">Filter by Region</option>
           <option value="Africa">Africa</option>
-          <option value="Americas">Americas</option> 
+          <option value="Americas">Americas</option>
           <option value="Asia">Asia</option>
           <option value="Europe">Europe</option>
           <option value="Oceania">Oceania</option>
@@ -76,16 +78,30 @@ const Counterisdata = () => {
       <div className="flex flex-wrap justify-between">
         {filteredPosts.length > 0 ? (
           filteredPosts.map((post: Wait, index: number) => (
-            <div key={index} className="m-0 mb-4 border rounded-[4px] border[red] w-[264px]">
-              <img
-                src={post.flags.svg}
-                alt={`${post.name.common} flag`}
-                className="mt-[0px] w-[267px] h-[160px] mt-2"
-              />
+            <div
+              key={index}
+              className="m-0 mb-4 border rounded-[4px] border[red] w-[264px]"
+            >
+<Link href={`/capital/${post.name.common}`}>
+  <img
+    src={post.flags.svg}
+    alt={`${post.name.common} flag`}
+    className="mt-0 w-[267px] h-[160px]"
+  />
+</Link>
+
+
+
               <p className="font-bold text-lg px-[24px]">{post.name.common}</p>
-              <p className="text-sm text-gray-500 mt-1 px-[24px]">Region: {post.region}</p>
-              <p className="text-sm text-gray-500 px-[24px]">Population: {post.population.toLocaleString()}</p>
-              <p className="text-sm text-gray-500 mt-1 px-[24px]">Capital: {post.capital}</p>
+              <p className="text-sm text-gray-500 mt-1 px-[24px]">
+                Region: {post.region}
+              </p>
+              <p className="text-sm text-gray-500 px-[24px]">
+                Population: {post.population.toLocaleString()}
+              </p>
+              <p className="text-sm text-gray-500 mt-1 px-[24px]">
+                Capital: {post.capital}
+              </p>
               <a
                 href={post.maps.googleMaps}
                 target="_blank"
