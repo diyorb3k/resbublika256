@@ -6,6 +6,7 @@ const Home  = () => {
       <main>
        <Counterisdata/> 
       </main>
+      {/* console.log(saklo); */}
       
     </div>
   )
